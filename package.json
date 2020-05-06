@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/bahareeskandari/githubapi/issues"
   },
-  "homepage": "https://github.com/bahareeskandari/githubapi#readme"
+  "homepage": "https://github.com/bahareeskandari/githubapi#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
