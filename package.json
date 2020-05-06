@@ -1,0 +1,22 @@
+{
+  "name": "githubapi",
+  "version": "1.0.0",
+  "description": "data",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahareeskandari/githubapi.git"
+  },
+  "keywords": [
+    "kes7*SEV"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bahareeskandari/githubapi/issues"
+  },
+  "homepage": "https://github.com/bahareeskandari/githubapi#readme"
+}
