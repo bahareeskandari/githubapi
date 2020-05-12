@@ -1,9 +1,9 @@
 const db = require('../db')
 
-cartProductController = () => {
+productCategoryController = () => {
   get = async (req, res) => {
     try {
-      const records = await db.get(req, res, 'cartProduct', [], 'CustomerId', 'ProductId')
+      const records = await db.get(req, res, 'productCategory')
 
       if (records.length == 0) {
         res.status(404)
@@ -18,7 +18,17 @@ cartProductController = () => {
 
   post = async (req, res) => {
     try {
-      return await db.modify(req, res, 'AddcartProduct', 'FirstName', 'LastName')
+      return await db.modify(
+        req,
+        res,
+        'AddproductCategory',
+        'productCategory1',
+        'productCategory2',
+        'City',
+        'Zip',
+        'CountryId',
+        'Company'
+      )
     } catch (err) {
       res.status(500)
       console.log(err)
@@ -28,7 +38,15 @@ cartProductController = () => {
 
   put = async (req, res) => {
     try {
-      return await db.modify(req, res, 'UpdatecartProduct', 'FirstName', 'LastName')
+      return await db.modify(
+        req,
+        res,
+        'UpdateproductCategory',
+        'productCategory1',
+        'City',
+        'Zip',
+        'CountryId'
+      )
     } catch (err) {
       res.status(500)
       return res.send('Unable to update.')
@@ -37,7 +55,7 @@ cartProductController = () => {
 
   remove = async (req, res) => {
     try {
-      await db.modify(req, res, 'DeletecartProduct')
+      await db.modify(req, res, 'DeleteproductCategory')
     } catch (err) {
       console.log(err)
       res.status(500)
@@ -48,4 +66,4 @@ cartProductController = () => {
   return {get, post, put, remove}
 }
 
-module.exports = cartProductController
+module.exports = productCategoryController

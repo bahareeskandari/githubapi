@@ -72,12 +72,23 @@ get = async (req, res, endpoint, hateoas = [], ...params) => {
   try {
     let parameters = ''
     params.forEach((param) => (parameters += `, ${param}`))
-
+    const newEndpoint = endpoint.substr(0, endpoint.length - 1)
     let query =
       req.params.Id > 0
-        ? `EXEC Get${endpoint} ${req.params.Id}${parameters}`
-        : endpoint === 'brand' || endpoint === 'cartProduct'
-        ? `EXEC Get${endpoint}s ${parameters.length < 2 ? '' : parameters.substring(2)}`
+        ? endpoint === 'cartProduct'
+          ? `EXEC Get${endpoint} ${parameters.substring(2)}`
+          : `EXEC Get${endpoint} ${req.params.Id}${parameters}`
+        : endpoint === 'brand' ||
+          endpoint === 'cartProduct' ||
+          endpoint === 'customer' ||
+          endpoint === 'favorite' ||
+          endpoint === 'order' ||
+          endpoint === 'paymentMethod' ||
+          endpoint === 'promoType' ||
+          endpoint === 'shippingMethod'
+        ? `EXEC Get${endpoint}s `
+        : endpoint === 'category' || endpoint === 'country'
+        ? `EXEC Get${newEndpoint}ies ${parameters.length < 2 ? '' : parameters.substring(2)}`
         : `EXEC Get${endpoint}es ${parameters.length < 2 ? '' : parameters.substring(2)}`
 
     await sql.connect(config)

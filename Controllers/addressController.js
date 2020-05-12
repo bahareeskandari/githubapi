@@ -1,6 +1,6 @@
 const db = require('../db')
 
-addresssController = () => {
+adressController = () => {
   get = async (req, res) => {
     try {
       const records = await db.get(req, res, 'address')
@@ -58,7 +58,7 @@ addresssController = () => {
   return {get, post, put, remove}
 }
 
-module.exports = addresssController
+module.exports = adressController
 
 /*
 const sql = require('mssql')
