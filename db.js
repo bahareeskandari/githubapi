@@ -72,14 +72,27 @@ get = async (req, res, endpoint, hateoas = [], ...params) => {
   try {
     let parameters = ''
     params.forEach((param) => (parameters += `, ${param}`))
+
     const newEndpoint = endpoint.substr(0, endpoint.length - 1)
+    // const customerIdparam = req.query.customerid ? req.query.customerid : ''
+    params
     let query =
       req.params.Id > 0
-        ? endpoint === 'cartProduct'
-          ? `EXEC Get${endpoint} ${parameters.substring(2)}`
-          : `EXEC Get${endpoint} ${req.params.Id}${parameters}`
+        ? `EXEC Get${endpoint} ${req.params.Id}${parameters}`
+        : endpoint === 'address' || endpoint === 'orderStatus' || endpoint === 'tax'
+        ? `EXEC Get${endpoint}es ${parameters.length < 2 ? '' : parameters.substring(2)}`
+        : endpoint === 'category' || endpoint === 'country'
+        ? `EXEC Get${newEndpoint}ies ${parameters.length < 2 ? '' : parameters.substring(2)}`
+        : (endpoint === 'cartProduct' && params[0] > 0) ||
+          (endpoint === 'favorite' && params[0] > 0 && params[1] > 0)
+        ? `EXEC Get${endpoint} ${params[0]}, ${params[1]}`
+        : `EXEC Get${endpoint}s ${params[0]}`
+    console.log(query)
+    /*
+    let query =
+      req.params.Id > 0
+        ? `EXEC Get${endpoint} ${req.params.Id}${parameters}`
         : endpoint === 'brand' ||
-          endpoint === 'cartProduct' ||
           endpoint === 'customer' ||
           endpoint === 'favorite' ||
           endpoint === 'order' ||
@@ -90,7 +103,15 @@ get = async (req, res, endpoint, hateoas = [], ...params) => {
         : endpoint === 'category' || endpoint === 'country'
         ? `EXEC Get${newEndpoint}ies ${parameters.length < 2 ? '' : parameters.substring(2)}`
         : `EXEC Get${endpoint}es ${parameters.length < 2 ? '' : parameters.substring(2)}`
+*/
+    console.log(query, parameters)
+    /*
+     ? `EXEC Get${endpoint} ${parameters.substring(2)}`
+          :
 
+
+          endpoint === 'cartProduct' ||
+    */
     await sql.connect(config)
     result = await sql.query(query)
 

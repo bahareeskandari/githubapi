@@ -3,7 +3,14 @@ const db = require('../db')
 favoriteController = () => {
   get = async (req, res) => {
     try {
-      const records = await db.get(req, res, 'favorite')
+      const records = await db.get(
+        req,
+        res,
+        'favorite',
+        [],
+        req.query.customerid,
+        req.query.productid
+      )
 
       if (records.length == 0) {
         res.status(404)
