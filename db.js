@@ -74,7 +74,6 @@ get = async (req, res, endpoint,hateoas = [], ...params) => {
     params.forEach((param) => (parameters += `, ${param}`))
 
     const newEndpoint = endpoint.substr(0, endpoint.length - 1)
-    // const customerIdparam = req.query.customerid ? req.query.customerid : ''
     let query;
 
    if(Object.keys(req.query).length > 0) {
@@ -82,8 +81,9 @@ get = async (req, res, endpoint,hateoas = [], ...params) => {
        query = (endpoint === 'cartProduct' && params[0] > 0 && params[1] > 0)
         || (endpoint === 'review' && params[0] > 0 && params[1] > 0)
        ? `EXEC Get${endpoint} ${params[0]}, ${params[1]}`
-       : `EXEC Get${endpoint}s ${params[0]}`
-
+       :  (endpoint === 'favorite' && params[0] > 0 && params[1] > 0)
+       ? `EXEC Get${endpoint} ${params[0]}, ${params[1]}`
+       :`EXEC Get${endpoint}s ${params[0]}`
 
 }else{
   query =
@@ -95,33 +95,10 @@ get = async (req, res, endpoint,hateoas = [], ...params) => {
       ? `EXEC Get${newEndpoint}ies ${parameters.length < 2 ? '' : parameters.substring(2)}`
       : endpoint === 'productCategory' ?
       `EXEC Get${newEndpoint}ies `
-      :`EXEC Get${endpoint}s  `
+      :`EXEC Get${endpoint}s `
 
 }
-    /*
-    let query =
-      req.params.Id > 0
-        ? `EXEC Get${endpoint} ${req.params.Id}${parameters}`
-        : endpoint === 'brand' ||
-          endpoint === 'customer' ||
-          endpoint === 'favorite' ||
-          endpoint === 'order' ||
-          endpoint === 'paymentMethod' ||
-          endpoint === 'promoType' ||
-          endpoint === 'shippingMethod'
-        ? `EXEC Get${endpoint}s `
-        : endpoint === 'category' || endpoint === 'country'
-        ? `EXEC Get${newEndpoint}ies ${parameters.length < 2 ? '' : parameters.substring(2)}`
-        : `EXEC Get${endpoint}es ${parameters.length < 2 ? '' : parameters.substring(2)}`
-*/
 
-    /*
-     ? `EXEC Get${endpoint} ${parameters.substring(2)}`
-          :
-
-
-          endpoint === 'cartProduct' ||
-    */
     await sql.connect(config)
     result = await sql.query(query)
 
@@ -164,11 +141,3 @@ modify = async (req, res, sp, ...bodyProperties) => {
 }
 
 module.exports = {get, modify, createHateoasLinks}
-
-/*
-const sql = require('mssql')
-const config = require('./config')
-
-get = async (req, res, endpoint, hateoas = [], ...params) => {}
-module.exports = {get}
-*/
