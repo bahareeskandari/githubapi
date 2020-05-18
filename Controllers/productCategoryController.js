@@ -3,7 +3,7 @@ const db = require('../db')
 productCategoryController = () => {
   get = async (req, res) => {
     try {
-      const records = await db.get(req, res, 'productCategory')
+      const records = await db.get(req, res, 'productCategory',  [],req.query.productId, req.query.customerId)
 
       if (records.length == 0) {
         res.status(404)

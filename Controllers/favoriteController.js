@@ -8,8 +8,8 @@ favoriteController = () => {
         res,
         'favorite',
         [],
-        req.query.customerid,
-        req.query.productid
+        req.query.customerId,
+        req.query.productId
       )
 
       if (records.length == 0) {

@@ -3,14 +3,14 @@ const db = require('../db')
 cartProductController = () => {
   get = async (req, res) => {
     try {
-      console.log(req.query.customerid, req.query.productid)
+
       const records = await db.get(
         req,
         res,
         'cartProduct',
         [],
-        req.query.customerid,
-        req.query.productid
+        req.query.customerId,
+        req.query.productId
       )
 
       if (records.length == 0) {

@@ -5,10 +5,10 @@ function routes() {
   const cartProductRouter = express.Router()
   const controller = cartProductController()
 
-  cartProductRouter.route('/cartProduct').get(controller.get).post(controller.post)
+  cartProductRouter.route('/cartProducts').get(controller.get).post(controller.post)
 
   cartProductRouter
-    .route('/cartProduct/:Id')
+    .route('/cartProducts/:Id')
     .get(controller.get)
     .put(controller.put)
     .delete(controller.remove)

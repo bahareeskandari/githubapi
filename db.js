@@ -8,7 +8,7 @@ createHateoasLinks = (req, records, hateoas) => {
     hateoas.forEach(
       (link) =>
         (record.links[
-          link.property.toLowerCase() == 'id' ? 'self' : link.property.toLowerCase()
+          link.property.toLowerCase() == 'Id' ? 'self' : link.property.toLowerCase()
         ] = `http://${req.headers.host}/api/${link.endpoint}/${record[link.property]}`)
     )
     return record
@@ -68,26 +68,36 @@ jsonKeysToLowerCase = (record) =>
     Object.entries(record).map(([k, v]) => [k[0].toLowerCase() + k.substring(1), v])
   )
 
-get = async (req, res, endpoint, hateoas = [], ...params) => {
+get = async (req, res, endpoint,hateoas = [], ...params) => {
   try {
     let parameters = ''
     params.forEach((param) => (parameters += `, ${param}`))
 
     const newEndpoint = endpoint.substr(0, endpoint.length - 1)
     // const customerIdparam = req.query.customerid ? req.query.customerid : ''
-    params
-    let query =
-      req.params.Id > 0
-        ? `EXEC Get${endpoint} ${req.params.Id}${parameters}`
-        : endpoint === 'address' || endpoint === 'orderStatus' || endpoint === 'tax'
-        ? `EXEC Get${endpoint}es ${parameters.length < 2 ? '' : parameters.substring(2)}`
-        : endpoint === 'category' || endpoint === 'country'
-        ? `EXEC Get${newEndpoint}ies ${parameters.length < 2 ? '' : parameters.substring(2)}`
-        : (endpoint === 'cartProduct' && params[0] > 0) ||
-          (endpoint === 'favorite' && params[0] > 0 && params[1] > 0)
-        ? `EXEC Get${endpoint} ${params[0]}, ${params[1]}`
-        : `EXEC Get${endpoint}s ${params[0]}`
-    console.log(query)
+    let query;
+
+   if(Object.keys(req.query).length > 0) {
+    console.log('get', req.query,'params', params)
+       query = (endpoint === 'cartProduct' && params[0] > 0 && params[1] > 0)
+        || (endpoint === 'review' && params[0] > 0 && params[1] > 0)
+       ? `EXEC Get${endpoint} ${params[0]}, ${params[1]}`
+       : `EXEC Get${endpoint}s ${params[0]}`
+
+
+}else{
+  query =
+    req.params.Id > 0
+      ? `EXEC Get${endpoint} ${req.params.Id}${parameters}`
+      : endpoint === 'address' || endpoint === 'orderStatus' || endpoint === 'tax'
+      ? `EXEC Get${endpoint}es ${parameters.length < 2 ? '' : parameters.substring(2)}`
+      : endpoint === 'category' || endpoint === 'country'
+      ? `EXEC Get${newEndpoint}ies ${parameters.length < 2 ? '' : parameters.substring(2)}`
+      : endpoint === 'productCategory' ?
+      `EXEC Get${newEndpoint}ies `
+      :`EXEC Get${endpoint}s  `
+
+}
     /*
     let query =
       req.params.Id > 0
@@ -104,7 +114,7 @@ get = async (req, res, endpoint, hateoas = [], ...params) => {
         ? `EXEC Get${newEndpoint}ies ${parameters.length < 2 ? '' : parameters.substring(2)}`
         : `EXEC Get${endpoint}es ${parameters.length < 2 ? '' : parameters.substring(2)}`
 */
-    console.log(query, parameters)
+
     /*
      ? `EXEC Get${endpoint} ${parameters.substring(2)}`
           :

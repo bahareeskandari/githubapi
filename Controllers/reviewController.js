@@ -3,7 +3,7 @@ const db = require('../db')
 reviewController = () => {
   get = async (req, res) => {
     try {
-      const records = await db.get(req, res, 'review')
+      const records = await db.get(req, res, 'review', [],req.query.customerId, req.query.productId)
 
       if (records.length == 0) {
         res.status(404)

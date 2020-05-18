@@ -5,10 +5,10 @@ function routes() {
   const reviewRouter = express.Router()
   const controller = reviewController()
 
-  reviewRouter.route('/review').get(controller.get).post(controller.post)
+  reviewRouter.route('/reviews').get(controller.get).post(controller.post)
 
   reviewRouter
-    .route('/review/:Id')
+    .route('/reviews/:Id')
     .get(controller.get)
     .put(controller.put)
     .delete(controller.remove)
