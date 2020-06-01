@@ -22,12 +22,10 @@ reviewController = () => {
         req,
         res,
         'Addreview',
-        'review1',
-        'review2',
-        'City',
-        'Zip',
-        'CountryId',
-        'Company'
+        'ProductId',
+        'CustomerId',
+        'Review',
+        'Stars'
       )
     } catch (err) {
       res.status(500)
@@ -38,7 +36,11 @@ reviewController = () => {
 
   put = async (req, res) => {
     try {
-      return await db.modify(req, res, 'Updatereview', 'review1', 'City', 'Zip', 'CountryId')
+      return await db.modify(req, res, 'Updatereview', ,
+      'ProductId',
+      'CustomerId',
+      'Review',
+      'Stars')
     } catch (err) {
       res.status(500)
       return res.send('Unable to update.')

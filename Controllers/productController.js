@@ -22,12 +22,14 @@ productController = () => {
         req,
         res,
         'Addproduct',
-        'product1',
-        'product2',
-        'City',
-        'Zip',
-        'CountryId',
-        'Company'
+        'BrandId',
+        'Product',
+        'Price',
+        'PercentOff',
+        'Description',
+        'IsFeatured',
+        'Stars',
+        'TaxId'
       )
     } catch (err) {
       res.status(500)
@@ -38,7 +40,19 @@ productController = () => {
 
   put = async (req, res) => {
     try {
-      return await db.modify(req, res, 'Updateproduct', 'product1', 'City', 'Zip', 'CountryId')
+      return await db.modify(
+        req,
+        res,
+        'Updateproduct',
+        'BrandId',
+        'Product',
+        'Price',
+        'PercentOff',
+        'Description',
+        'IsFeatured',
+        'Stars',
+        'TaxId'
+      )
     } catch (err) {
       res.status(500)
       return res.send('Unable to update.')

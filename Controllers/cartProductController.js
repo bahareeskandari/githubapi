@@ -26,7 +26,7 @@ cartProductController = () => {
 
   post = async (req, res) => {
     try {
-      return await db.modify(req, res, 'AddcartProduct', 'FirstName', 'LastName')
+      return await db.modify(req, res, 'AddcartProduct', 'CustomerId', 'ProductId', 'Count')
     } catch (err) {
       res.status(500)
       console.log(err)
@@ -36,7 +36,7 @@ cartProductController = () => {
 
   put = async (req, res) => {
     try {
-      return await db.modify(req, res, 'UpdatecartProduct', 'FirstName', 'LastName')
+      return await db.modify(req, res, 'UpdatecartProduct', 'CustomerId', 'ProductId', 'Count')
     } catch (err) {
       res.status(500)
       return res.send('Unable to update.')

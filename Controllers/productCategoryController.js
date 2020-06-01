@@ -3,7 +3,14 @@ const db = require('../db')
 productCategoryController = () => {
   get = async (req, res) => {
     try {
-      const records = await db.get(req, res, 'productCategory',  [],req.query.productId, req.query.customerId)
+      const records = await db.get(
+        req,
+        res,
+        'productCategory',
+        [],
+        req.query.productId,
+        req.query.customerId
+      )
 
       if (records.length == 0) {
         res.status(404)
@@ -18,17 +25,7 @@ productCategoryController = () => {
 
   post = async (req, res) => {
     try {
-      return await db.modify(
-        req,
-        res,
-        'AddproductCategory',
-        'productCategory1',
-        'productCategory2',
-        'City',
-        'Zip',
-        'CountryId',
-        'Company'
-      )
+      return await db.modify(req, res, 'AddproductCategory', 'ProductId', 'CategoryId')
     } catch (err) {
       res.status(500)
       console.log(err)
@@ -38,15 +35,7 @@ productCategoryController = () => {
 
   put = async (req, res) => {
     try {
-      return await db.modify(
-        req,
-        res,
-        'UpdateproductCategory',
-        'productCategory1',
-        'City',
-        'Zip',
-        'CountryId'
-      )
+      return await db.modify(req, res, 'UpdateproductCategory', 'ProductId', 'CategoryId')
     } catch (err) {
       res.status(500)
       return res.send('Unable to update.')

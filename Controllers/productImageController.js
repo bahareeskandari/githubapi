@@ -22,12 +22,9 @@ productImageController = () => {
         req,
         res,
         'AddproductImage',
-        'productImage1',
-        'productImage2',
-        'City',
-        'Zip',
-        'CountryId',
-        'Company'
+        'ProductId',
+        'Url',
+        'IsMainImage'
       )
     } catch (err) {
       res.status(500)
@@ -42,10 +39,9 @@ productImageController = () => {
         req,
         res,
         'UpdateproductImage',
-        'productImage1',
-        'City',
-        'Zip',
-        'CountryId'
+        'ProductId',
+        'Url',
+        'IsMainImage'
       )
     } catch (err) {
       res.status(500)

@@ -22,12 +22,10 @@ promoCodeController = () => {
         req,
         res,
         'AddpromoCode',
-        'promoCode1',
-        'promoCode2',
-        'City',
-        'Zip',
-        'CountryId',
-        'Company'
+        'CustomerId',
+        'Code',
+        'Value',
+        'PromoTypeId'
       )
     } catch (err) {
       res.status(500)
@@ -38,7 +36,11 @@ promoCodeController = () => {
 
   put = async (req, res) => {
     try {
-      return await db.modify(req, res, 'UpdatepromoCode', 'promoCode1', 'City', 'Zip', 'CountryId')
+      return await db.modify(req, res, 'UpdatepromoCode',
+      'CustomerId',
+      'Code',
+      'Value',
+      'PromoTypeId')
     } catch (err) {
       res.status(500)
       return res.send('Unable to update.')

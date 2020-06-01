@@ -25,17 +25,7 @@ favoriteController = () => {
 
   post = async (req, res) => {
     try {
-      return await db.modify(
-        req,
-        res,
-        'Addfavorite',
-        'favorite1',
-        'favorite2',
-        'City',
-        'Zip',
-        'CountryId',
-        'Company'
-      )
+      return await db.modify(req, res, 'Addfavorite', 'CustomerId', 'ProductId')
     } catch (err) {
       res.status(500)
       console.log(err)
@@ -45,7 +35,7 @@ favoriteController = () => {
 
   put = async (req, res) => {
     try {
-      return await db.modify(req, res, 'Updatefavorite', 'favorite1', 'City', 'Zip', 'CountryId')
+      return await db.modify(req, res, 'Updatefavorite', 'CustomerId', 'ProductId')
     } catch (err) {
       res.status(500)
       return res.send('Unable to update.')

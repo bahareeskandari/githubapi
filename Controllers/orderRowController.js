@@ -22,12 +22,13 @@ orderRowController = () => {
         req,
         res,
         'AddorderRow',
-        'orderRow1',
-        'orderRow2',
-        'City',
-        'Zip',
-        'CountryId',
-        'Company'
+        'OrderId',
+        'ProductId',
+        'Price',
+        'PercentOff',
+        'Count',
+        'Total',
+        'Tax'
       )
     } catch (err) {
       res.status(500)
@@ -38,7 +39,18 @@ orderRowController = () => {
 
   put = async (req, res) => {
     try {
-      return await db.modify(req, res, 'UpdateorderRow', 'orderRow1', 'City', 'Zip', 'CountryId')
+      return await db.modify(
+        req,
+        res,
+        'UpdateorderRow',
+        'OrderId',
+        'ProductId',
+        'Price',
+        'PercentOff',
+        'Count',
+        'Total',
+        'Tax'
+      )
     } catch (err) {
       res.status(500)
       return res.send('Unable to update.')
